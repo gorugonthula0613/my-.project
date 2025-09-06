@@ -1,44 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Restaurant</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body { font-family: Arial, sans-serif; background: #f8f8f8; }
-    .menu-container { max-width: 600px; margin: 40px auto; background: #fff; padding: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.07);}
-    h1 { text-align: center; margin-bottom: 24px;}
-    h2 { color: #444; border-bottom: 1px solid #ddd; margin-top: 32px; }
-    ul { list-style: none; padding: 0; }
-    li { padding: 8px 0; display: flex; justify-content: space-between; }
-    .price { color: #c0392b; font-weight: bold;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agriculture Predictor</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #eaffea;}
+        h1 { color: #2e7d32;}
+        label { display: block; margin-top: 10px;}
+        input, select { padding: 5px; width: 200px;}
+        button { margin-top: 15px; padding: 10px 20px; background-color: #4caf50; color: white; border: none; cursor: pointer; }
+        #result { margin-top: 20px; font-weight: bold; }
+    </style>
 </head>
 <body>
-  <div class="menu-container">
-    <h1>Restaurant </h1>
+    <h1>AI Agriculture Predictor</h1>
+    <form id="agriForm">
+        <label for="temperature">Temperature (°C):</label>
+        <input type="number" id="temperature" name="temperature" required min="-10" max="50" step="0.1">
 
-    <h2>Tea</h2>
-    <ul>
-      <li>Normal Tea <span class="price">Rs 30</span></li>
-      <li>Masala Tea <span class="price">Rs 50</span></li>
-      <li>Special Tea <span class="price">Rs 70</span></li>
-    </ul>
+        <label for="humidity">Humidity (%):</label>
+        <input type="number" id="humidity" name="humidity" required min="0" max="100" step="0.1">
 
-    <h2>Pizza</h2>
-    <ul>
-      <li>Mix Veg Pizza <span class="price">Rs 199</span></li>
-      <li>Kulhad Pizza <span class="price">Rs 99</span></li>
-      <li>Onion Pizza <span class="price">Rs 149</span></li>
-      <li>Cheese Pizza <span class="price">Rs 159</span></li>
-    </ul>
+        <label for="soilType">Soil Type:</label>
+        <select id="soilType" name="soilType" required>
+            <option value="loamy">Loamy</option>
+            <option value="sandy">Sandy</option>
+            <option value="clayey">Clayey</option>
+            <option value="silty">Silty</option>
+        </select>
 
-    <h2>Burger</h2>
-    <ul>
-      <li>Veg Burger <span class="price">Rs 69</span></li>
-      <li>Paneer Burger <span class="price">Rs 89</span></li>
-      <li>Fruit Burger <span class="price">Rs 75</span></li>
-      <li>Cheese Burger <span class="price">Rs 69</span></li>
-    </ul>
-  </div>
+        <label for="cropType">Crop Type:</label>
+        <select id="cropType" name="cropType" required>
+            <option value="wheat">Wheat</option>
+            <option value="rice">Rice</option>
+            <option value="corn">Corn</option>
+            <option value="soybean">Soybean</option>
+        </select>
+
+        <button type="button" onclick="predictYield()">Predict Yield</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        function predictYield() {
+            const temp = parseFloat(document.getElementById('temperature').value);
+            const humidity = parseFloat(document.getElementById('humidity').value);
+            const soil = document.getElementById('soilType').value;
+            const crop = document.getElementById('cropType').value;
+
+            let baseYield = 100; // base yield value
+
+            // Adjust yield based on temperature
+            if(temp < 10) baseYield -= 20;
+            else if(temp > 35) baseYield -= 30;
+            else baseYield += (temp - 22) * 2;
+
+            // Adjust yield based on humidity
+            if(humidity < 30) baseYield -= 15;
+            else if(humidity > 80) baseYield -= 10;
+            else baseYield += (humidity - 55) * 0.5;
+
+            // Adjust yield based on soil type
+            switch(soil) {
+                case 'loamy': baseYield += 20; break;
+                case 'sandy': baseYield -= 10; break;
+                case 'clayey': baseYield += 5; break;
+                case 'silty': baseYield += 10; break;
+            }
+
+            // Adjust yield based on crop type
+            switch(crop) {
+                case 'wheat': baseYield += 15; break;
+                case 'rice': baseYield += 10; break;
+                case 'corn': baseYield += 20; break;
+                case 'soybean': baseYield += 5; break;
+            }
+
+            // Clamp the yield value to not be negative
+            if(baseYield < 0) baseYield = 0;
+
+            document.getElementById('result').innerText = `Predicted Crop Yield Index: ${baseYield.toFixed(2)}`;
+        }
+    </script>
 </body>
 </html>
