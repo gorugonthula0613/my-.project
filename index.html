@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
   <title>Restaurant Menu</title>
-
   <link rel="stylesheet" href="style.css">
-
   <style>
+    body { font-family: Arial, sans-serif; background: #f8f8f8; }
+    .menu-container { max-width: 600px; margin: 40px auto; background: #fff; padding: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.07);}
+    h1 { text-align: center; margin-bottom: 24px;}
+    h2 { color: #444; border-bottom: 1px solid #ddd; margin-top: 32px; }
+    ul { list-style: none; padding: 0; }
+    li { padding: 8px 0; display: flex; justify-content: space-between; }
+    .price { color: #c0392b; font-weight: bold;}
+  </style>
+</head>
+<body>
+  <div class="menu-container">
+    <h1>Restaurant Menu</h1>
 
-    body { font-family: Arial, sans-serif; background: 
+    <h2>Tea</h2>
+    <ul>
+      <li>Normal Tea <span class="price">Rs 30</span></li>
+      <li>Masala Tea <span class="price">Rs 50</span></li>
+      <li>Special Tea <span class="price">Rs 70</span></li>
+    </ul>
+
+    <h2>Pizza</h2>
+    <ul>
+      <li>Mix Veg Pizza <span class="price">Rs 199</span></li>
+      <li>Kulhad Pizza <span class="price">Rs 99</span></li>
+      <li>Onion Pizza <span class="price">Rs 149</span></li>
+      <li>Cheese Pizza <span class="price">Rs 159</span></li>
+    </ul>
+
+    <h2>Burger</h2>
+    <ul>
+      <li>Veg Burger <span class="price">Rs 69</span></li>
+      <li>Paneer Burger <span class="price">Rs 89</span></li>
+      <li>Fruit Burger <span class="price">Rs 75</span></li>
+      <li>Cheese Burger <span class="price">Rs 69</span></li>
+    </ul>
+  </div>
+</body>
+</html>
